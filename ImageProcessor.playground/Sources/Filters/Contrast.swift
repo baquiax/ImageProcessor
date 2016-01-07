@@ -1,8 +1,8 @@
-public class Brightness : Filter {
-    private var percentage : Double = 0;
+public class Contrast : Filter {
+    private var factor : Double = 0;
     
-    public init (percentage const: Double) {
-        self.percentage = const;
+    public init (factor const: Double) {
+        self.factor = const;
     }
     
     func limitAndCastNumber(number:Double) -> UInt8 {
@@ -11,13 +11,12 @@ public class Brightness : Filter {
     
     public func apply(image: RGBAImage) -> RGBAImage {
         var pixel : Pixel?
-        let percentage : Double = 1.0 + self.percentage;
         for r in 0...image.height - 1 {
             for c in 0...image.width - 1 {
                 pixel = image.pixels[ image.height * r + c ]
-                pixel!.red = limitAndCastNumber((Double(pixel!.red) * percentage))
-                pixel!.green = limitAndCastNumber((Double(pixel!.green) * percentage))
-                pixel!.blue = limitAndCastNumber((Double(pixel!.blue) * percentage))
+                pixel!.red = limitAndCastNumber((Double(pixel!.red) - 0.5) * self.factor + 0.5)
+                pixel!.green = limitAndCastNumber((Double(pixel!.green) - 0.5) * self.factor + 0.5)
+                pixel!.blue = limitAndCastNumber((Double(pixel!.blue) - 0.5) * self.factor + 0.5)
                 image.pixels[image.height * r + c] = pixel!;
             }
         }
