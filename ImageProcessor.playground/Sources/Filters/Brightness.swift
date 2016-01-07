@@ -1,7 +1,7 @@
 public class Brightness : Filter {
     private var percentage : Double = 0;
     
-    public init (percentage const: Double) {
+    public init (increasePercentage const: Double) {
         self.percentage = const;
     }
     
@@ -17,7 +17,7 @@ public class Brightness : Filter {
                 pixel = image.pixels[ image.height * r + c ]
                 pixel!.red = limitAndCastNumber((Double(pixel!.red) * percentage))
                 pixel!.green = limitAndCastNumber((Double(pixel!.green) * percentage))
-                pixel!.blue = limitAndCastNumber((Double(pixel!.blue) * percentage))
+                pixel!.blue = limitAndCastNumber((Double(pixel!.blue) * percentage))                
                 image.pixels[image.height * r + c] = pixel!;
             }
         }
