@@ -1,12 +1,15 @@
+import Foundation
+
 public class Gamma : Filter {
-    var gamma : Int
+    var gamma : Double
     
-    public init (gamma value : Int) {
-        self.gamma = gamma
+    public init (gamma v : Double) {
+        self.gamma = 1 / ((v == 0) ? 1 : v)
     }
     
     func newValue(currentValue: Int) -> UInt8 {
-        return UInt8(pow(currentValue / 255, self.gamma) * 255)
+        let powValue = pow(Double(currentValue) / 255.0, self.gamma) * 255
+        return UInt8(max(0,min( powValue, 255)))
     }
     
     public func apply(image: RGBAImage) -> RGBAImage {
@@ -16,7 +19,7 @@ public class Gamma : Filter {
                 pixel = image.pixels[ image.height * r + c ]
                 pixel!.red = newValue(Int(pixel!.red))
                 pixel!.green = newValue(Int(pixel!.green))
-                pixel!.blue = newValue(Int(pixel!.blue))                
+                pixel!.blue = newValue(Int(pixel!.blue))
                 image.pixels[image.height * r + c] = pixel!;
             }
         }

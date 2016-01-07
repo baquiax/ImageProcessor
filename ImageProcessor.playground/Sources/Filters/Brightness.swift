@@ -1,7 +1,7 @@
 public class Brightness : Filter {
     private var percentage : Double = 0;
     
-    public init (increasePercentage const: Double) {
+    public init (increaseFactor const: Double) {
         self.percentage = const;
     }
     

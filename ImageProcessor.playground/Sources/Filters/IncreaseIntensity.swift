@@ -2,13 +2,13 @@ public class IncreaseIntensity : Filter {
     var percentage : Double
     var color: Colors
     
-    public init (increasePercentage v : Double, color c : Colors) {
+    public init (increaseFactor v : Double, color c : Colors) {
         self.percentage = v
         self.color = c
     }
     
     func newValue(currentValue: Int) -> UInt8 {
-        UInt8(max(0,min(currentValue*(1 + percentage) , 255)));
+        return UInt8(max(0,min(Double(currentValue) * (1 + percentage) , 255)));
     }
     
     public func apply(image: RGBAImage) -> RGBAImage {
@@ -22,8 +22,7 @@ public class IncreaseIntensity : Filter {
                     case Colors.Green:
                         pixel!.green = newValue(Int(pixel!.green))
                     case Colors.Blue:
-                        pixel!.blue = newValue(Int(pixel!.blue))          
-                    default:  
+                        pixel!.blue = newValue(Int(pixel!.blue))
                 }
                 image.pixels[image.height * r + c] = pixel!;
             }

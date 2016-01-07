@@ -1,3 +1,5 @@
+//This is an extra Filter, it does not receive parameters.
+
 public class Invert : Filter {
         
     public init () {
